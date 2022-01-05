@@ -1,11 +1,10 @@
 import React from "react";
-import propTypes from "prop-types";
-import { bool } from "prop-types";
+import propTypes, { bool } from "prop-types";
 import ImageGalleryItem from "../ImageGalleryItem";
 import Button from "../Button";
 import Loader from "../Loader";
 import Modal from "../Modal";
-import { GalleryWrapper, List } from "./ImageGallery.style";
+import { GalleryWrapper, List, ModalImage } from "./ImageGallery.style";
 
 class ImageGallery extends React.Component {
   state = {
@@ -43,7 +42,10 @@ class ImageGallery extends React.Component {
 
         {selectedPhoto && (
           <Modal closeModal={this.removeSelectedPhoto}>
-            <img src={selectedPhoto.largeImageURL} alt={selectedPhoto.tags} />
+            <ModalImage
+              src={selectedPhoto.largeImageURL}
+              alt={selectedPhoto.tags}
+            ></ModalImage>
           </Modal>
         )}
       </GalleryWrapper>

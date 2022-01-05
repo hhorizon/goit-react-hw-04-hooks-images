@@ -19,4 +19,9 @@ const List = styled.ul`
   width: 1600px;
 `;
 
-export { GalleryWrapper, List };
+const ModalImage = styled.img`
+  max-height: 95vh;
+  border-radius: 10px;
+`;
+
+export { GalleryWrapper, List, ModalImage };

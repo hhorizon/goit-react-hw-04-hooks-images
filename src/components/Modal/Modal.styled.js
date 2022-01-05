@@ -15,9 +15,6 @@ const ModalContent = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-height: 90vh;
-  background-color: #fff;
-  border-radius: 3px;
 `;
 
 const ModalBtn = styled.button`

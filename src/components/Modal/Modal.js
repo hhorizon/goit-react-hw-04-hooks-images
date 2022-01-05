@@ -1,42 +1,40 @@
 import { createPortal } from "react-dom";
-import { Component } from "react";
+import { useEffect } from "react";
 import { VscClose } from "react-icons/vsc";
 import { Overlay, ModalContent, ModalBtn } from "./Modal.styled";
 
 const modalRoot = document.querySelector("#modal-root");
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener("keydown", this.handleKeyDown);
-  }
+function Modal({ closeModal, children }) {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.code === "Escape") {
+        closeModal();
+      }
+    };
 
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.handleKeyDown);
-  }
+    window.addEventListener("keydown", handleKeyDown);
 
-  handleKeyDown = (e) => {
-    if (e.code === "Escape") {
-      this.props.closeModal();
-    }
-  };
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
-  handleBackdropClick = (e) => {
+  const handleBackdropClick = (e) => {
     if (e.currentTarget === e.target) {
-      this.props.closeModal();
+      closeModal();
     }
   };
 
-  render() {
-    return createPortal(
-      <Overlay onClick={this.handleBackdropClick}>
-        <ModalContent>{this.props.children}</ModalContent>
-        <ModalBtn onClick={this.props.closeModal}>
-          <VscClose />
-        </ModalBtn>
-      </Overlay>,
-      modalRoot
-    );
-  }
+  return createPortal(
+    <Overlay onClick={handleBackdropClick}>
+      <ModalContent>{children}</ModalContent>
+      <ModalBtn onClick={closeModal}>
+        <VscClose />
+      </ModalBtn>
+    </Overlay>,
+    modalRoot
+  );
 }
 
 export default Modal;
