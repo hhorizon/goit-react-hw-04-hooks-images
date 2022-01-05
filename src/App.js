@@ -36,6 +36,8 @@ function App() {
       .finally(() => {
         setIsLoading(false);
       });
+
+    // Мне почему-то предлагает добавить в зависимости photos.length
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, currentPage]);
 
