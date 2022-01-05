@@ -1,7 +1,7 @@
 import Spinner from "react-loader-spinner";
 import { LoaderWrapper, LoaderContent } from "./Loader.style";
 
-const Loader = () => {
+function Loader() {
   return (
     <LoaderWrapper>
       <LoaderContent>
@@ -9,6 +9,6 @@ const Loader = () => {
       </LoaderContent>
     </LoaderWrapper>
   );
-};
+}
 
 export default Loader;

@@ -1,13 +1,13 @@
 import propTypes from "prop-types";
 import { StyledButton } from "./Button.style";
 
-const Button = ({ text, onClick }) => {
+function Button({ text, onClick }) {
   return (
     <StyledButton type="button" onClick={() => onClick()}>
       {text}
     </StyledButton>
   );
-};
+}
 
 export default Button;
 

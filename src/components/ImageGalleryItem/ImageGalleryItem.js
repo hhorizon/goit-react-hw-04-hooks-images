@@ -1,17 +1,17 @@
 import propTypes from "prop-types";
 import { Item, Image } from "./ImageGalleryItem.style";
 
-const ImageGalleryItem = ({ photo, index, onClick }) => {
+function ImageGalleryItem({ photo, index, onClickPhoto }) {
   return (
     <Item>
       <Image
         src={photo.webformatURL}
         alt={photo.tags}
-        onClick={() => onClick(index)}
+        onClick={() => onClickPhoto(index)}
       />
     </Item>
   );
-};
+}
 
 export default ImageGalleryItem;
 

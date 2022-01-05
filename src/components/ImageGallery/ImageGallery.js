@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import propTypes, { bool } from "prop-types";
 import ImageGalleryItem from "../ImageGalleryItem";
 import Button from "../Button";
@@ -6,51 +6,44 @@ import Loader from "../Loader";
 import Modal from "../Modal";
 import { GalleryWrapper, List, ModalImage } from "./ImageGallery.style";
 
-class ImageGallery extends React.Component {
-  state = {
-    selectedPhoto: null,
+function ImageGallery({ photos, isLoading, isLoadingMoreBtn, onLoadMore }) {
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
+  const onClickPhoto = (index) => {
+    setSelectedPhoto(photos[index]);
   };
 
-  setSelectedPhoto = (index) => {
-    this.setState({ selectedPhoto: this.props.photos[index] });
+  const closeModal = () => {
+    setSelectedPhoto(null);
   };
 
-  removeSelectedPhoto = () => {
-    this.setState({ selectedPhoto: null });
-  };
+  return (
+    <GalleryWrapper>
+      {isLoading && <Loader />}
 
-  render() {
-    const { photos, isLoading, isLoadingMoreBtn, onLoadMore } = this.props;
-    const { selectedPhoto } = this.state;
+      <List>
+        {photos.map((photo, index) => (
+          <ImageGalleryItem
+            key={index}
+            photo={photo}
+            index={index}
+            onClickPhoto={onClickPhoto}
+          />
+        ))}
+      </List>
 
-    return (
-      <GalleryWrapper>
-        {isLoading && <Loader />}
+      {isLoadingMoreBtn && <Button text="Load more" onClick={onLoadMore} />}
 
-        <List>
-          {photos.map((photo, index) => (
-            <ImageGalleryItem
-              key={index}
-              photo={photo}
-              index={index}
-              onClick={this.setSelectedPhoto}
-            />
-          ))}
-        </List>
-
-        {isLoadingMoreBtn && <Button text="Load more" onClick={onLoadMore} />}
-
-        {selectedPhoto && (
-          <Modal closeModal={this.removeSelectedPhoto}>
-            <ModalImage
-              src={selectedPhoto.largeImageURL}
-              alt={selectedPhoto.tags}
-            ></ModalImage>
-          </Modal>
-        )}
-      </GalleryWrapper>
-    );
-  }
+      {selectedPhoto && (
+        <Modal closeModal={closeModal}>
+          <ModalImage
+            src={selectedPhoto.largeImageURL}
+            alt={selectedPhoto.tags}
+          ></ModalImage>
+        </Modal>
+      )}
+    </GalleryWrapper>
+  );
 }
 
 export default ImageGallery;
