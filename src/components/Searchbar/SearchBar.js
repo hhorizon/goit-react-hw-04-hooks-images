@@ -18,7 +18,7 @@ function SearchBar({ onSubmit }) {
     const searchQuery = value.trim().toLowerCase();
 
     if (searchQuery === "") {
-      toast.info("Enter your query.");
+      toast("Enter your query.");
       return;
     }
 
